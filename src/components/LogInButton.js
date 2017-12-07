@@ -14,7 +14,7 @@ class LogInButton extends Component {
       return(
         <View style={[this.props.buttonView, {flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}]}>
           <Image resizeMode={'contain'}
-           style={[ { width: 30, height: 30}, this.props.iconStyle]}
+           style={[ { width: 30, height: 30, alignItems: 'center', justifyContent: 'center'}, this.props.iconStyle]}
            source={this.props.iconSource}
           />
             <Text style={[this.props.buttonTextStyle, {backgroundColor: 'transparent'}]}>

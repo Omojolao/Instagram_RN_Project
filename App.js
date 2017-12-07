@@ -68,6 +68,17 @@ buttonTapped = () => {
 
           </LogInButton>
 
+          <LogInButton
+            buttonView={[viewstyles.instagramLogInButtonView, viewstyles.facebookLogInButtonView]}
+            buttonTextStyle={textstyles.instagramButtonTextStyles}
+            buttonTapped={this.buttonTapped}
+            activeOpacity={0.75}
+            touchableHighLightStyle={[viewstyles.instagramTouchableHighLightStyle, viewstyles.facebookTouchableHighLighStyle]}
+            iconSource={require('./src/images/facebook-white-logo.png')}
+          >
+              acebook
+
+          </LogInButton>
 
         </ScrollView>
       </ImageBackground>
@@ -92,7 +103,7 @@ const viewstyles = {
   instagramLogo: {
     width: (0.45 * windowSize.width),
     height: (0.15 * windowSize.height),
-    marginBottom: 25,
+    marginBottom: 20,
     alignSelf: 'center'
   },
   scrollViewStyle: {
@@ -110,6 +121,13 @@ const viewstyles = {
     width: standardComponentWidth,
     height: sizes.buttonHeight,
     marginTop: 5
+  },
+  facebookLogInButtonView: {
+    backgroundColor: colors.facebook
+  },
+  facebookTouchableHighLighStyle: {
+    marginTop: 20,
+    marginBottom: 5
   }
 };
 const textstyles = {
