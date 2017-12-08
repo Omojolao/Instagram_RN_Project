@@ -88,9 +88,10 @@ loginScreenComponent = () => {
           { this.forgotLogInDetailsComponent('forgot your log in details?', 'Get help signing in', urls.forgotInstagramLogin) }
           { this.orSeparatorComponent() }
           { this.logInWithTwitterComponent() }
-          { this.dontHaveAnAccountComponent() }
+
 
         </ScrollView>
+          { this.signupFooterComponent() }
       </ImageBackground>
     );
   }
@@ -151,6 +152,14 @@ logInWithTwitterComponent = () => {
           log in with twitter
       </TappableText>
 
+    </View>
+  );
+}
+
+signupFooterComponent = () => {
+  return(
+    <View style={viewstyles.signupFooterComponentStyle}>
+      { this.forgotLogInDetailsComponent('Dont have an account?', 'Sign up', urls.instagramSignUp) }
     </View>
   );
 }
@@ -238,7 +247,19 @@ const viewstyles = {
     width: sizes.twitterIcon,
     height: sizes.twitterIcon,
     marginHorizontal: 6,
-
+  },
+  signupFooterComponentStyle: {
+    flex: 0.2,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.25)',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 5.5 },
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: 5
   }
 };
 const textstyles = {
