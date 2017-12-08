@@ -168,7 +168,7 @@ render() {
     return (
       this.loginScreenComponent()
     );
-  }
+      }
 }
 
 const viewstyles = {
@@ -261,7 +261,7 @@ const viewstyles = {
     justifyContent: 'center',
     paddingBottom: 5
   }
-};
+}
 const textstyles = {
   instagramButtonTextStyles: {
     color: colors.text,
