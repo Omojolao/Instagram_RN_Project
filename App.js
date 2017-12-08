@@ -1,23 +1,33 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground, StatusBar, ScrollView, Image } from 'react-native';
+import { Text, View, ImageBackground, StatusBar, ScrollView, Image, Linking} from 'react-native';
 import Dimensions from 'Dimensions'
 
 import LogInButton from './src/components/LogInButton';
+import TappableText from './src/components/TappableText'
 
 const windowSize = Dimensions.get('window');
-const standardComponentWidth = (0.82 * windowSize.width);
+const standardComponentWidth = (0.9 * windowSize.width);
 
 const colors = {
   facebook: 'rgb(59,89,152)',
   text: 'rgba(255, 255, 255, 0.7)',
-  socialMediaButtonBorderColor: 'rgba(255, 255, 255, 0.35)'
-}
+  socialMediaButtonBorderColor: 'rgba(255, 255, 255, 0.35)',
+  underlayColor: 'transparent'
+};
 const sizes = {
-  buttonHeight: 45,
+  buttonHeight: 60,
   pageFontSize: 12,
   borderWidth: 0.8,
   borderRadius: 5
-}
+};
+const urls = {
+  forgotInstagramLogin: 'https://www.instagram.com/accounts/password/reset',
+  twitterLogin: 'https://twitter.com/login?lang=en',
+  instagramSignUp: 'https://www.instagram.com/accounts/emailsignup/?hl=en',
+  instagramAuthLogin: 'https://api.instagram.com/oauth/authorize/?client_id=cda6dee7d8164a868150910407962f52&redirect_uri=http://www.kaitechconsulting.com&response_type=token&scope=basic+follower_list+comments+likes',
+  instagramLogout: 'https://instagram.com/accounts/logout',
+  instagramBase: 'https://www.instagram.com/',
+};
 
 
 
@@ -79,12 +89,37 @@ buttonTapped = () => {
               acebook
 
           </LogInButton>
-
+          { this.forgotLogInDetailsComponent() }
         </ScrollView>
       </ImageBackground>
     );
   }
 
+ forgotLogInDetailsComponent = () => {
+    return(
+      <View style={viewstyles.forgotLogInDetailsVStyle}>
+        <Text style={textstyles.forgotLogInDetailsTStyle}>forgot your login details?</Text>
+          <TappableText
+          textStyle={[textstyles.forgotLogInDetailsTStyle, textstyles.forgotLogInDetailsBold]}
+          textTapped={ () => Linking.openURL (urls.forgotInstagramLogin) }
+          >
+              Get help signing in
+          </TappableText>
+      </View>
+
+      /*<View style={viewstyles.forgotLogInDetailsVStyle}>
+        <Text style={textstyles.forgotLogInDetailsTStyle}>Dont have an account?</Text>
+          <TappableText
+            textStyle={[textstyles.forgotLogInDetailsTStyle, textstyles.forgotLogInDetailsBold]}
+            textTapped={ () => Linking.openURL (urls.instagramSignUp) }
+          >
+            Sign up
+          </TappableText>
+      </View>
+      */
+
+    );
+ }
 
   render() {
     return (
@@ -107,7 +142,7 @@ const viewstyles = {
     alignSelf: 'center'
   },
   scrollViewStyle: {
-    paddingTop: '38%'
+    paddingTop: '30%'
   },
   instagramLogInButtonView: {
     backgroundColor: 'transparent',
@@ -123,11 +158,19 @@ const viewstyles = {
     marginTop: 5
   },
   facebookLogInButtonView: {
-    backgroundColor: colors.facebook
+    backgroundColor: colors.facebook,
+    borderColor: 'transparent'
   },
   facebookTouchableHighLighStyle: {
     marginTop: 20,
     marginBottom: 5
+  },
+  forgotLogInDetailsVStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    marginTop: 5
   }
 };
 const textstyles = {
@@ -135,5 +178,14 @@ const textstyles = {
     color: colors.text,
     fontWeight: '500'
 
+  },
+  forgotLogInDetailsTStyle: {
+    color: 'white',
+    fontSize: sizes.pageFontSize,
+    marginRight: 5,
+    backgroundColor: 'transparent'
+  },
+  forgotLogInDetailsBold: {
+    fontWeight: 'bold',
   }
 }

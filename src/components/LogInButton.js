@@ -38,7 +38,7 @@ class LogInButton extends Component {
   render(){
     return(
       <TouchableHighlight
-        undeylaycolor={'transparent'}
+        underlayColor={'transparent'}
         activeOpacity={this.props.activeOpacity}
         style={[this.props.touchableHighLightStyle, viewstyles.touchableHighLightStyle]}
         onPress={this.props.buttonTapped}
