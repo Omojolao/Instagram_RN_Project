@@ -3,7 +3,8 @@ import { Text, View, ImageBackground, StatusBar, ScrollView, Image, Linking, Web
 import Dimensions from 'Dimensions'
 
 import LogInButton from './src/components/LogInButton';
-import TappableText from './src/components/TappableText'
+import TappableText from './src/components/TappableText';
+import InstaNavigationBar from './src/components/InstaNavigationBar';
 
 const windowSize = Dimensions.get('window');
 const standardComponentWidth = (0.9 * windowSize.width);
@@ -52,6 +53,29 @@ onURLStateChange = (webViewState) => {
   const currentURL = webViewState.url;
 
   console.log('current URL = ' + currentURL);
+
+  if( webViewState.url.includes(accessTokenSubString) ){
+
+    if(this.state.accessToken.length < 1){
+/* this will store the index of the a in the access_token= and
+add on the number of characters in access_token to find the beginning of the access token
+*/
+        var startIndexOfAccessToken = currentURL.lastIndexOf(accessTokenSubString) + accessTokenSubString.length
+        var foundAccessToken = currentURL.substr(startIndexOfAccessToken);
+
+        console.log('found Access Token ' + foundAccessToken);
+
+        this.setState({accessToken: foundAccessToken, displayAuthenticationWebview: false, displayLogInScreen: false});
+    }
+  }
+}
+
+instagramFeedPAgeComponent = () => {
+  return(
+    <View style={[viewstyles.container, {paddingTop: 20}]}>
+      <InstaNavigationBar/>
+    </View>
+  );
 }
 
 displayAuthenticationWebviewComponent = () => {
@@ -59,7 +83,7 @@ displayAuthenticationWebviewComponent = () => {
       <WebView
         source={{ url: this.state.authenticationURL }}
         startInLoadingState={true}
-        onNavigationstateChange={this.onURLStateChange}
+        onNavigationStateChange={this.onURLStateChange}
       />
     );
   }
@@ -188,6 +212,9 @@ signupFooterComponent = () => {
 }
 
 render() {
+
+  const shouldDisplayFeedPage = (this.state.accessToken.length > 1 && this.state.displayAuthenticationWebview == false && this.state.displayLogInScreen == false);
+
  if(this.state.displayLogInScreen && this.state.displayAuthenticationWebview == false){
     return(
       this.loginScreenComponent()
@@ -198,17 +225,22 @@ render() {
       this.displayAuthenticationWebviewComponent()
     );
   }
+  else if (shouldDisplayFeedPage){
+    return(
+      this.instagramFeedPAgeComponent()
+    );
+  }
 }
-
 
 }
 
 const viewstyles = {
+
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+
   },
   instagramLogo: {
     width: (0.45 * windowSize.width),
