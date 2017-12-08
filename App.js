@@ -30,12 +30,7 @@ const urls = {
   instagramBase: 'https://www.instagram.com/',
 };
 
-
-
-
-
 export default class App extends Component {
-
 
 constructor(props){
   super(props);
@@ -90,7 +85,7 @@ loginScreenComponent = () => {
               acebook
 
           </LogInButton>
-          { this.forgotLogInDetailsComponent() }
+          { this.forgotLogInDetailsComponent('forgot your log in details?', 'Get help signing in', urls.forgotInstagramLogin) }
           { this.orSeparatorComponent() }
           { this.logInWithTwitterComponent() }
           { this.dontHaveAnAccountComponent() }
@@ -100,15 +95,15 @@ loginScreenComponent = () => {
     );
   }
 
-forgotLogInDetailsComponent = () => {
+forgotLogInDetailsComponent = (normalText, boldText, url) => {
     return(
       <View style={viewstyles.forgotLogInDetailsVStyle}>
-        <Text style={textstyles.forgotLogInDetailsTStyle}>forgot your login details?</Text>
+        <Text style={textstyles.forgotLogInDetailsTStyle}>{normalText}</Text>
           <TappableText
           textStyle={[textstyles.forgotLogInDetailsTStyle, textstyles.forgotLogInDetailsBold]}
-          textTapped={ () => Linking.openURL (urls.forgotInstagramLogin) }
+          textTapped={ () => Linking.openURL (url) }
           >
-              Get help signing in
+            {boldText}
           </TappableText>
       </View>
 
