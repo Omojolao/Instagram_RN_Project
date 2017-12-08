@@ -18,7 +18,8 @@ const sizes = {
   buttonHeight: 60,
   pageFontSize: 12,
   borderWidth: 0.8,
-  borderRadius: 5
+  borderRadius: 5,
+  twitterIcon: 18
 };
 const urls = {
   forgotInstagramLogin: 'https://www.instagram.com/accounts/password/reset',
@@ -36,20 +37,20 @@ const urls = {
 export default class App extends Component {
 
 
-  constructor(props){
-    super(props);
+constructor(props){
+  super(props);
 
-    this.state = {
+      this.state = {
 
-    }
+      }
 
   }
 
 buttonTapped = () => {
-  console.log('button tapped');
-}
+    console.log('button tapped');
+  }
 
-  loginScreenComponent = () => {
+loginScreenComponent = () => {
     return(
       <ImageBackground
           style={viewstyles.container}
@@ -90,12 +91,16 @@ buttonTapped = () => {
 
           </LogInButton>
           { this.forgotLogInDetailsComponent() }
+          { this.orSeparatorComponent() }
+          { this.logInWithTwitterComponent() }
+          { this.dontHaveAnAccountComponent() }
+
         </ScrollView>
       </ImageBackground>
     );
   }
 
- forgotLogInDetailsComponent = () => {
+forgotLogInDetailsComponent = () => {
     return(
       <View style={viewstyles.forgotLogInDetailsVStyle}>
         <Text style={textstyles.forgotLogInDetailsTStyle}>forgot your login details?</Text>
@@ -107,21 +112,55 @@ buttonTapped = () => {
           </TappableText>
       </View>
 
-      /*<View style={viewstyles.forgotLogInDetailsVStyle}>
-        <Text style={textstyles.forgotLogInDetailsTStyle}>Dont have an account?</Text>
-          <TappableText
-            textStyle={[textstyles.forgotLogInDetailsTStyle, textstyles.forgotLogInDetailsBold]}
-            textTapped={ () => Linking.openURL (urls.instagramSignUp) }
-          >
-            Sign up
-          </TappableText>
-      </View>
-      */
-
     );
  }
 
-  render() {
+dontHaveAnAccountComponent = () => {
+   return(
+     <View style={viewstyles.dontHaveAnAccountVStyle}>
+     <Text style={textstyles.dontHaveAnAccountTStyle}>Dont have an account?</Text>
+       <TappableText
+         textStyle={[textstyles.dontHaveAnAccountTStyle, textstyles.dontHaveAnAccountBold]}
+         textTapped={ () => Linking.openURL (urls.instagramSignUp) }
+       >
+         Sign up
+       </TappableText>
+     </View>
+   );
+ }
+
+orSeparatorComponent = () => {
+  return(
+    <View style={viewstyles.orSeparatorStyle}>
+      <View style={viewstyles.orSeparatorLineStyle}/>
+      <Text style={textstyles.orSeparatortextStyle}>OR</Text>
+      <View style={viewstyles.orSeparatorLineStyle}/>
+    </View>
+
+  );
+}
+
+logInWithTwitterComponent = () => {
+  return(
+    <View style={viewstyles.twitterLogInStyle}>
+
+      <Image
+      resizeMode={'contain'}
+      style={viewstyles.twitterIcon}
+      source={require('./src/images/icons/twitter_bird.png')}
+      />
+      <TappableText
+        textStyle={[textstyles.forgotLogInDetailsTStyle, textstyles.forgotLogInDetailsBold]}
+        textTapped={() => Linking.openURL (urls.twitterLogin)}
+      >
+          log in with twitter
+      </TappableText>
+
+    </View>
+  );
+}
+
+render() {
     return (
       this.loginScreenComponent()
     );
@@ -170,7 +209,41 @@ const viewstyles = {
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
-    marginTop: 5
+    marginTop: 10
+  },
+  orSeparatorStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 15
+  },
+  orSeparatorLineStyle: {
+    height: 1,
+    flex: 5,
+    backgroundColor: colors.socialMediaButtonBorderColor,
+    borderColor: colors.socialMediaButtonBorderColor,
+    borderWidth: 0.5,
+    marginHorizontal: 5
+  },
+  dontHaveAnAccountVStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 5,
+    marginTop:20
+  },
+  twitterLogInStyle: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  twitterIcon: {
+    width: sizes.twitterIcon,
+    height: sizes.twitterIcon,
+    marginHorizontal: 6,
+
   }
 };
 const textstyles = {
@@ -187,5 +260,20 @@ const textstyles = {
   },
   forgotLogInDetailsBold: {
     fontWeight: 'bold',
+  },
+  orSeparatortextStyle: {
+    color: 'white',
+    backgroundColor: 'transparent',
+    fontWeight: 'bold',
+    fontSize: 13
+  },
+  dontHaveAnAccountBold: {
+    fontWeight: 'bold'
+  },
+  dontHaveAnAccountTStyle: {
+    color: 'white',
+    fontSize: sizes.pageFontSize,
+    marginRight: 5,
+    backgroundColor: 'transparent'
   }
 }
