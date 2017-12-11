@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground, StatusBar, ScrollView, Image, Linking, WebView} from 'react-native';
+import { Text, View, ImageBackground, StatusBar, ScrollView, Image, Linking, WebView, FlatList} from 'react-native';
 import Dimensions from 'Dimensions'
 
-import LogInButton from './src/components/LogInButton.js';
-import TappableText from './src/components/TappableText.js';
-import InstaNavigationBar from './src/components/InstaNavigationBar.js';
-import NetworkManager from './src/model/NetworkManager.js';
+import LogInButton from './src/components/LogInButton';
+import TappableText from './src/components/TappableText';
+import InstaNavigationBar from './src/components/InstaNavigationBar';
+import NetworkManager from './src/model/NetworkManager';
+import InstaFeedCell from './src/components/InstaFeedCell';
 const windowSize = Dimensions.get('window');
 const standardComponentWidth = (0.9 * windowSize.width);
 
@@ -89,7 +90,11 @@ instagramFeedPAgeComponent = () => {
   return(
     <View style={[viewstyles.container, {paddingTop: 20}]}>
       <InstaNavigationBar/>
-
+      <FlatList
+        data={this.feedData}
+        renderItem={ ({item}) => <InstaFeedCell cellData={item}/> }
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 }

@@ -31,10 +31,10 @@ const viewStyles = {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 8,
-    borderColor: 'lightgray',
-    shadowOffset: {height: 0.2, width: 0},
-    shadowOpacity: 0.2,
-    borderTopWidth: 0.5
+    //borderColor: 'lightgray',
+    //shadowOffset: {height: 0.2, width: 0},
+    //shadowOpacity: 0.2,
+    //borderTopWidth: 0.5
   },
   profilePicture: {
     height: 30,
