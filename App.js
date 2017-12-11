@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Text, View, ImageBackground, StatusBar, ScrollView, Image, Linking, WebView} from 'react-native';
 import Dimensions from 'Dimensions'
 
-import LogInButton from './src/components/LogInButton';
-import TappableText from './src/components/TappableText';
-import InstaNavigationBar from './src/components/InstaNavigationBar';
-
+import LogInButton from './src/components/LogInButton.js';
+import TappableText from './src/components/TappableText.js';
+import InstaNavigationBar from './src/components/InstaNavigationBar.js';
+import NetworkManager from './src/model/NetworkManager.js';
 const windowSize = Dimensions.get('window');
 const standardComponentWidth = (0.9 * windowSize.width);
 
@@ -60,20 +60,36 @@ onURLStateChange = (webViewState) => {
 /* this will store the index of the a in the access_token= and
 add on the number of characters in access_token to find the beginning of the access token
 */
-        var startIndexOfAccessToken = currentURL.lastIndexOf(accessTokenSubString) + accessTokenSubString.length
-        var foundAccessToken = currentURL.substr(startIndexOfAccessToken);
 
-        console.log('found Access Token ' + foundAccessToken);
+    var startIndexOfAccessToken = currentURL.lastIndexOf(accessTokenSubString) + accessTokenSubString.length
+    var foundAccessToken = currentURL.substr(startIndexOfAccessToken);
 
-        this.setState({accessToken: foundAccessToken, displayAuthenticationWebview: false, displayLogInScreen: false});
+    console.log('found Access Token ' + foundAccessToken);
+
+
+
+   //var apiManager =
+   this.apiManager = new NetworkManager(foundAccessToken);
+
+    this.apiManager.getSessionAndFeedData( (data) => {
+      this.Data = data;
+      console.log(data);
+      },
+    (feedData) => {
+      this.feedData = feedData;
+      console.log(feedData);
+      this.setState({accessToken: foundAccessToken, displayAuthenticationWebview: false, displayLogInScreen: false});
+    });
+
+      }
     }
-  }
 }
 
 instagramFeedPAgeComponent = () => {
   return(
     <View style={[viewstyles.container, {paddingTop: 20}]}>
       <InstaNavigationBar/>
+
     </View>
   );
 }

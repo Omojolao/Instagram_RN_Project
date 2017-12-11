@@ -24,7 +24,6 @@ class NetworkManager {
   constructor(accessToken){
     this.accessToken = accessToken;
   }
-
   getLoggedInUserInformation(completionCallback){
 
     /*self/?access_token=ACCESS-TOKEN*/
